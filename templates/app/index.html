@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="alert alert-info text-center">employee registration</h1>
+    <div class="row">
+        <div class="col">
+<form method="POST" >
+    {% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="submit" class="btn btn-primary">
+</form>
+    </div>
+    </div>
+    <br><br>
+    <h1 class="alert alert-dark text-center">employee record</h1>
+<table class="table my-3" >
+    <thead class="alert alert-success">
+      <tr>
+        <th scope="col">sno</th>
+        <th scope="col">name</th>
+        <th scope="col">email</th>
+        <th scope="col">password</th>
+        <th scope="col">button
+        </th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+
+        {% for i in data %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.name}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.password}}</td>
+        <td>    
+            <a href="{% url 'update' i.id %}">
+            <i class="">update</i>
+            </a>
+            <form method="POST" action="{% url 'delete' i.id %}">
+                {% csrf_token %}
+                <button type="submit">delete</button>
+            </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock content %}
